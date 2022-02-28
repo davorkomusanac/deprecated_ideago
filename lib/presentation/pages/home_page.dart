@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ideago/presentation/pages/add_idea_page.dart';
-import 'package:uuid/uuid.dart';
+import 'package:provider/provider.dart';
+
 import '../../models/idea/idea.dart';
 import '../../services/storage_service.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -90,7 +90,10 @@ class _AddIdea extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 8.0),
       child: ElevatedButton(
-        onPressed: () => MaterialPageRoute(builder: (context) => const AddIdeaPage()),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddIdeaPage()),
+        ),
         child: const Text("Add new idea"),
       ),
     );
