@@ -20,6 +20,7 @@ class Idea with _$Idea {
 }
 //TODO Extend Idea model (add categories, additional properties, etc)
 //TODO Implement with Hive or some other data storage
+//TODO add Index as a field
 
 ///
 ///

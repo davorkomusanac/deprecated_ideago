@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ideago/presentation/pages/add_idea_page.dart';
-import 'package:provider/provider.dart';
-
-import '../../models/idea/idea.dart';
-import '../../services/storage_service.dart';
+import '../../application/ideas/ideas_cubit.dart';
+import '../../repository/ideas_repository.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,14 +12,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late IdeasRepository _ideasRepository;
+
+  @override
+  void initState() {
+    super.initState();
+    _ideasRepository = IdeasRepository();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("IdeaGo"),
       ),
-      body: ChangeNotifierProvider(
-        create: (context) => StorageService()..getAllIdeas(),
+      body: BlocProvider(
+        create: (context) => IdeasCubit(_ideasRepository)..getIdeas(),
         child: Column(
           children: const [
             //_SearchIdeas(),
@@ -43,28 +50,52 @@ class _BuildIdeas extends StatefulWidget {
 class _BuildIdeasState extends State<_BuildIdeas> {
   @override
   Widget build(BuildContext context) {
-    //TODO Listen to state changes here, and show all ideas from storage
-    return Consumer<StorageService>(
-      builder: (context, ideaController, child) {
-        return Expanded(
-          child: ListView.builder(
-            itemCount: ideaController.ideas.length,
-            itemBuilder: (context, index) {
-              Idea idea = ideaController.ideas[index];
-              return ListTile(
-                title: Text(idea.title),
-                trailing: IconButton(
-                  onPressed: () {
-                    context.read<StorageService>().removeIdea(idea);
-                  },
-                  icon: const Icon(Icons.delete),
-                ),
-              );
-            },
-          ),
+    return BlocBuilder<IdeasCubit, IdeasState>(builder: (context, state) {
+      if (state.status == IdeasStatus.initial) {
+        return const Center(
+          child: CircularProgressIndicator(),
         );
-      },
-    );
+      } else if (state.status == IdeasStatus.error) {
+        return Center(
+          child: Text(state.errorMessage),
+        );
+      } else {
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            var idea = state.ideas[index];
+            return Row(
+              children: [
+                Text(idea.title),
+                Text(idea.description),
+              ],
+            );
+          },
+          itemCount: state.ideas.length,
+        );
+      }
+    });
+    //TODO Listen to state changes here, and show all ideas from storage
+    // return Consumer<IdeasRepository>(
+    //   builder: (context, ideaController, child) {
+    //     return Expanded(
+    //       child: ListView.builder(
+    //         itemCount: ideaController.ideas.length,
+    //         itemBuilder: (context, index) {
+    //           Idea idea = ideaController.ideas[index];
+    //           return ListTile(
+    //             title: Text(idea.title),
+    //             trailing: IconButton(
+    //               onPressed: () {
+    //                 context.read<IdeasRepository>().removeIdea(idea);
+    //               },
+    //               icon: const Icon(Icons.delete),
+    //             ),
+    //           );
+    //         },
+    //       ),
+    //     );
+    //   },
+    // );
   }
 }
 

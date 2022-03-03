@@ -3,9 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'constants.dart';
 import 'presentation/pages/home_page.dart';
-import 'presentation/pages/markets_page.dart';
 
-import 'models/idea/idea.dart';
+import 'data/models/idea/idea.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

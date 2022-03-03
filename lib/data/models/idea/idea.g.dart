@@ -46,26 +46,23 @@ class IdeaAdapter extends TypeAdapter<_$_Idea> {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is IdeaAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      identical(this, other) || other is IdeaAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$_Idea _$$_IdeaFromJson(Map<String, dynamic> json) => _$_Idea(
       uid: json['uid'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
-      categories: (json['categories'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
+      categories: (json['categories'] as List<dynamic>).map((e) => e as String).toList(),
       dateTime: DateTime.parse(json['dateTime'] as String),
     );
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$$_IdeaToJson(_$_Idea instance) => <String, dynamic>{
       'uid': instance.uid,
       'title': instance.title,
