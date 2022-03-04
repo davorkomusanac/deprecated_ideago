@@ -1,14 +1,15 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ideago/constants.dart';
+
 import '../data/models/idea/idea.dart';
 
 class IdeasRepository {
-  final ideaBox = Hive.box<List<Idea>>(kBoxName);
+  final ideaBox = Hive.box<Idea>(kBoxName);
 
   List<Idea> getAllIdeas() {
     List<Idea> ideas = [];
-    List<Idea>? boxIdeas = ideaBox.get(kBoxMainKey, defaultValue: []);
-    for (Idea idea in boxIdeas!) {
+    var values = ideaBox.values;
+    for (Idea idea in values) {
       ideas.add(idea);
     }
     return ideas;
@@ -27,22 +28,19 @@ class IdeasRepository {
   //       .toList();
   // }
 
-  //Hive box stores the whole list in one key, so the whole new updated lit needs to be put as a value for a new write
-  void addIdea(List<Idea> ideas) {
-    ideaBox.put(kBoxMainKey, ideas);
+  void addIdea(Idea idea) {
+    ideaBox.put(idea.uid, idea);
   }
 
-  void removeIdea(List<Idea> ideas) {
-    //Instead of calling delete inside box, just replace the List<Idea> with the deleted item
-    ideaBox.put(kBoxMainKey, ideas);
+  void removeIdea(Idea idea) {
+    ideaBox.delete(idea.uid);
   }
 
   //Hive doesn't have update, but you just put a new write over old data
-  void updateIdea(List<Idea> ideas) {
+  void updateIdea(Idea idea) {
     // var index = _ideas.indexWhere((element) => element.uid == idea.uid);
     // _ideas[index] = idea;
-    // removeWhere
-    ideaBox.put(kBoxMainKey, ideas);
+    ideaBox.put(idea.uid, idea);
   }
 
   //TODO Read ideas from storage, update them, and delete them, and search for them

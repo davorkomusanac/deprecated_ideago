@@ -43,8 +43,8 @@ class IdeasCubit extends Cubit<IdeasState> {
         dateTime: DateTime.now(),
       );
 
+      _repository.addIdea(idea);
       var updatedIdeas = [...state.ideas, idea];
-      _repository.addIdea(updatedIdeas);
 
       emit(state.copyWith(
         status: IdeasStatus.success,
@@ -61,6 +61,7 @@ class IdeasCubit extends Cubit<IdeasState> {
 
   void deleteIdea(Idea idea) {
     try {
+      _repository.removeIdea(idea);
       var updatedIdeas = [...state.ideas];
       updatedIdeas.removeWhere((element) => idea.uid == element.uid);
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ideago/presentation/pages/add_idea_page.dart';
+
 import '../../application/ideas/ideas_cubit.dart';
-import '../../repository/ideas_repository.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,12 +12,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late IdeasRepository _ideasRepository;
-
   @override
   void initState() {
     super.initState();
-    _ideasRepository = IdeasRepository();
   }
 
   @override
@@ -26,15 +23,14 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("IdeaGo"),
       ),
-      body: BlocProvider(
-        create: (context) => IdeasCubit(_ideasRepository)..getIdeas(),
-        child: Column(
-          children: const [
-            //_SearchIdeas(),
-            _BuildIdeas(),
-            _AddIdea(),
-          ],
-        ),
+      body: Column(
+        children: const [
+          //_SearchIdeas(),
+          Expanded(
+            child: _BuildIdeas(),
+          ),
+          _AddIdea(),
+        ],
       ),
     );
   }
@@ -63,11 +59,22 @@ class _BuildIdeasState extends State<_BuildIdeas> {
         return ListView.builder(
           itemBuilder: (context, index) {
             var idea = state.ideas[index];
-            return Row(
-              children: [
-                Text(idea.title),
-                Text(idea.description),
-              ],
+            return Padding(
+              padding: const EdgeInsets.all(28.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(idea.title),
+                  ),
+                  Expanded(
+                    child: Text(idea.description),
+                  ),
+                  IconButton(
+                    onPressed: () => context.read<IdeasCubit>().deleteIdea(idea),
+                    icon: const Icon(Icons.delete),
+                  ),
+                ],
+              ),
             );
           },
           itemCount: state.ideas.length,
@@ -99,22 +106,8 @@ class _BuildIdeasState extends State<_BuildIdeas> {
   }
 }
 
-//TODO Improve UI of the button, show it as a FAB button?
 class _AddIdea extends StatelessWidget {
   const _AddIdea({Key? key}) : super(key: key);
-
-  void _handleAddIdeaPressed(BuildContext context) {
-    //TODO Add a new idea, add it to storage and update state
-    // context.read<StorageService>().addIdea(
-    //       Idea(
-    //         uid: const Uuid().v4(),
-    //         title: 'randomm',
-    //         description: '',
-    //         categories: [],
-    //         dateTime: DateTime.now(),
-    //       ),
-    //     );
-  }
 
   @override
   Widget build(BuildContext context) {
