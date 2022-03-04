@@ -12,7 +12,7 @@ class IdeasCubit extends Cubit<IdeasState> {
 
   final IdeasRepository _repository;
 
-  void getIdeas() {
+  void getAllIdeas() {
     try {
       final ideas = _repository.getAllIdeas();
 
@@ -29,7 +29,7 @@ class IdeasCubit extends Cubit<IdeasState> {
     }
   }
 
-  void createIdea({
+  void addIdea({
     required String title,
     required String description,
   }) {

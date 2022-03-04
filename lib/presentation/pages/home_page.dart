@@ -1,3 +1,4 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ideago/presentation/pages/add_idea_page.dart';
@@ -60,22 +61,32 @@ class _BuildIdeasState extends State<_BuildIdeas> {
           itemBuilder: (context, index) {
             var idea = state.ideas[index];
             return Padding(
-              padding: const EdgeInsets.all(28.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(idea.title),
-                  ),
-                  Expanded(
-                    child: Text(idea.description),
-                  ),
-                  IconButton(
-                    onPressed: () => context.read<IdeasCubit>().deleteIdea(idea),
-                    icon: const Icon(Icons.delete),
-                  ),
-                ],
+              padding: const EdgeInsets.all(48.0),
+              child: Center(
+                child: ExpandablePanel(
+                  header: Text('GO F'),
+                  collapsed: Text("Test"),
+                  expanded: Text("RESULTTT HEHEHE"),
+                ),
               ),
             );
+            // return Padding(
+            //   padding: const EdgeInsets.all(28.0),
+            //   child: Row(
+            //     children: [
+            //       Expanded(
+            //         child: Text(idea.title),
+            //       ),
+            //       Expanded(
+            //         child: Text(idea.description),
+            //       ),
+            //       IconButton(
+            //         onPressed: () => context.read<IdeasCubit>().deleteIdea(idea),
+            //         icon: const Icon(Icons.delete),
+            //       ),
+            //     ],
+            //   ),
+            // );
           },
           itemCount: state.ideas.length,
         );

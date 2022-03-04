@@ -13,6 +13,7 @@ class _AddIdeaPageState extends State<AddIdeaPage> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
   late TextEditingController _categoriesController;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -31,8 +32,16 @@ class _AddIdeaPageState extends State<AddIdeaPage> {
   }
 
   Widget buildIdeaTitle() {
-    return TextField(
+    return TextFormField(
       controller: _titleController,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Your Idea must have a name';
+        } else {
+          return null;
+        }
+      },
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: const InputDecoration(
         labelText: 'Idea',
         hintText: 'Title of your idea..',
@@ -69,29 +78,36 @@ class _AddIdeaPageState extends State<AddIdeaPage> {
         appBar: AppBar(
           title: const Text('Add idea'),
         ),
-        body: ListView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(28.0),
-              child: buildIdeaTitle(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(28.0),
-              child: buildDescriptionTitle(),
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  context.read<IdeasCubit>().createIdea(
-                        title: _titleController.text,
-                        description: _descriptionController.text,
-                      );
-                },
-                child: const Text("Add Idea"),
+        body: Form(
+          key: _formKey,
+          child: ListView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(28.0),
+                child: buildIdeaTitle(),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(28.0),
+                child: buildDescriptionTitle(),
+              ),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    var valid = _formKey.currentState?.validate() ?? false;
+                    if (valid) {
+                      context.read<IdeasCubit>().addIdea(
+                            title: _titleController.text,
+                            description: _descriptionController.text,
+                          );
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: const Text("Add Idea"),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

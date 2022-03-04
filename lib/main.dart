@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => IdeasCubit(_ideasRepository)..getIdeas(),
+      create: (context) => IdeasCubit(_ideasRepository)..getAllIdeas(),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'IdeaGo',
