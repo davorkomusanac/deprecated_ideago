@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ideago/application/ideas/ideas_cubit.dart';
+import 'package:ideago/data/models/question_rating/question_rating.dart';
 
 import 'constants.dart';
 import 'data/models/idea/idea.dart';
@@ -16,6 +17,7 @@ void main() async {
   ]);
   await Hive.initFlutter();
   Hive.registerAdapter(IdeaAdapter());
+  Hive.registerAdapter(QuestionRatingAdapter());
   await Hive.openBox<Idea>(kBoxName);
   runApp(const MyApp());
 }
@@ -40,10 +42,24 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => IdeasCubit(_ideasRepository)..getAllIdeas(),
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'IdeaGo',
-        home: HomePage(),
+        theme: ThemeData.dark().copyWith(
+          cardColor: Colors.teal,
+          scaffoldBackgroundColor: Colors.blueGrey[900],
+          inputDecorationTheme: InputDecorationTheme(
+            floatingLabelStyle: const TextStyle(color: Colors.teal),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.teal, width: 2.0),
+              borderRadius: BorderRadius.circular(25.0),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+          ),
+        ),
+        home: const HomePage(),
       ),
     );
   }

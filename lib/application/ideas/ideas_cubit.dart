@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ideago/repository/ideas_repository.dart';
-import 'package:uuid/uuid.dart';
 
+import '../../constants.dart';
 import '../../data/models/idea/idea.dart';
 
 part 'ideas_state.dart';
@@ -30,17 +30,19 @@ class IdeasCubit extends Cubit<IdeasState> {
   }
 
   void addIdea({
+    required String uid,
     required String title,
     required String description,
   }) {
     try {
       //TODO Implement Idea construction as it should be
       var idea = Idea(
-        uid: const Uuid().v4(),
+        uid: uid,
         title: title,
         description: description,
         categories: <String>[],
         dateTime: DateTime.now(),
+        questionRatings: initialQuestionRatings,
       );
 
       _repository.addIdea(idea);
@@ -78,5 +80,3 @@ class IdeasCubit extends Cubit<IdeasState> {
     }
   }
 }
-
-//TODO Try out if putting loading animation while search makes sense, if it is too fast, just go straight to success.

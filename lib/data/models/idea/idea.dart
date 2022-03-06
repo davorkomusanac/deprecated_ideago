@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:ideago/data/models/question_rating/question_rating.dart';
 
 part 'idea.freezed.dart';
 part 'idea.g.dart';
@@ -14,20 +15,11 @@ class Idea with _$Idea {
     @HiveField(2) required String description,
     @HiveField(3) required List<String> categories,
     @HiveField(4) required DateTime dateTime,
+    @HiveField(5) required List<QuestionRating> questionRatings,
+    //TODO List<String> categories?
+    //TODO int index
+    //TODO List<int> ideaRatings
   }) = _Idea;
 
   factory Idea.fromJson(Map<String, dynamic> json) => _$IdeaFromJson(json);
 }
-//TODO Extend Idea model (add categories, additional properties, etc)
-//TODO Implement with Hive or some other data storage
-//TODO add Index as a field
-
-///
-///
-/// 1. Be able to Add Ideas
-/// 2. Be able to Update Ideas
-/// 3. Be able to Read Ideas
-/// 4. Be able to Delete Ideas
-///
-/// 5. Be able to search for ideas
-///

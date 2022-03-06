@@ -41,6 +41,7 @@ dependencies:
   uuid: ^3.0.6
   equatable: ^2.0.3
   expandable: ^5.0.1
+  material_design_icons_flutter: ^5.0.6595
 
 
 dev_dependencies:

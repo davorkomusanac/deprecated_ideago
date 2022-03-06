@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ideago/application/ideas/ideas_cubit.dart';
+import 'package:ideago/presentation/pages/rate_idea_page.dart';
+import 'package:uuid/uuid.dart';
 
 class AddIdeaPage extends StatefulWidget {
   const AddIdeaPage({Key? key}) : super(key: key);
@@ -42,14 +44,12 @@ class _AddIdeaPageState extends State<AddIdeaPage> {
         }
       },
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      cursorColor: Colors.teal,
+      autocorrect: false,
       decoration: const InputDecoration(
         labelText: 'Idea',
         hintText: 'Title of your idea..',
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25.0)),
-          gapPadding: 4,
-        ),
       ),
     );
   }
@@ -57,15 +57,14 @@ class _AddIdeaPageState extends State<AddIdeaPage> {
   Widget buildDescriptionTitle() {
     return TextField(
       controller: _descriptionController,
-      maxLines: 10,
+      minLines: 10,
+      maxLines: 30,
+      cursorColor: Colors.teal,
+      autocorrect: false,
       decoration: const InputDecoration(
         labelText: 'Description',
         hintText: 'Full description of your idea..',
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25.0)),
-          gapPadding: 4,
-        ),
       ),
     );
   }
@@ -76,6 +75,7 @@ class _AddIdeaPageState extends State<AddIdeaPage> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.teal,
           title: const Text('Add idea'),
         ),
         body: Form(
@@ -84,26 +84,38 @@ class _AddIdeaPageState extends State<AddIdeaPage> {
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             children: [
               Padding(
-                padding: const EdgeInsets.all(28.0),
+                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
                 child: buildIdeaTitle(),
               ),
               Padding(
-                padding: const EdgeInsets.all(28.0),
+                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
                 child: buildDescriptionTitle(),
               ),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    var valid = _formKey.currentState?.validate() ?? false;
-                    if (valid) {
-                      context.read<IdeasCubit>().addIdea(
-                            title: _titleController.text,
-                            description: _descriptionController.text,
-                          );
-                      Navigator.of(context).pop();
-                    }
-                  },
-                  child: const Text("Add Idea"),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Colors.teal),
+                    onPressed: () {
+                      var valid = _formKey.currentState?.validate() ?? false;
+                      if (valid) {
+                        //generating uid here since it is also needed for RateIdeaPage
+                        var uid = const Uuid().v4();
+                        context.read<IdeasCubit>().addIdea(
+                              uid: uid,
+                              title: _titleController.text,
+                              description: _descriptionController.text,
+                            );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RateIdeaPage(ideaUid: uid),
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text("Add Idea"),
+                  ),
                 ),
               ),
             ],
