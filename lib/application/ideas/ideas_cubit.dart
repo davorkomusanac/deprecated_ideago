@@ -79,4 +79,10 @@ class IdeasCubit extends Cubit<IdeasState> {
       ));
     }
   }
+
+  void rateIdeaQuestion({
+    required String ideaUid,
+    required int questionRatingsIndex,
+    required int rating,
+  }) {}
 }

@@ -16,6 +16,7 @@ class Idea with _$Idea {
     @HiveField(3) required List<String> categories,
     @HiveField(4) required DateTime dateTime,
     @HiveField(5) required List<QuestionRating> questionRatings,
+    //TODO int sumOfRatings?
     //TODO List<String> categories?
     //TODO int index
     //TODO List<int> ideaRatings

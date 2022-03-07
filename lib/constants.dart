@@ -65,10 +65,3 @@ List<QuestionRating> initialQuestionRatings = [
         'Once the initial offer has been created, how much additional work will you have to put into it in order to continue selling? (Business consulting requires ongoing work to get paid; a book can be produced once, then sold over and over as-is.',
   ),
 ];
-
-String questionRatingIntro =
-    'Rate each of the 10 questions below on a scale from 0 to 10, where 0 is extremely unattractive and 10 is extremely attractive.\nWhen in doubt about a question, be conservative in rating.';
-
-//TODO
-String questionRatingOutro =
-    'When you are done with rating your idea, press the button and check your score. If the score is 50 or below - move on to another idea, there are better places';

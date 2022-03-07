@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ideago/presentation/pages/rate_idea_page/widgets/rate_idea_intro.dart';
+import 'package:ideago/presentation/pages/rate_idea_page/widgets/rate_idea_outro.dart';
+import 'package:ideago/presentation/pages/rate_idea_page/widgets/idea_rating_slider_header.dart';
 
-import '../../application/ideas/ideas_cubit.dart';
-import '../../constants.dart';
+import '../../../application/ideas/ideas_cubit.dart';
+import '../../../constants.dart';
 
 class RateIdeaPage extends StatelessWidget {
   const RateIdeaPage({
@@ -26,12 +29,13 @@ class RateIdeaPage extends StatelessWidget {
             children: [
               Expanded(
                 child: ListView.builder(
-                  itemCount: idea.questionRatings.length + 1,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: idea.questionRatings.length + 2,
                   itemBuilder: (context, index) {
                     if (index == 0) {
-                      return RichText(
-                        text: TextSpan(text: questionRatingIntro),
-                      );
+                      return const RateIdeaIntro();
+                    } else if (index == idea.questionRatings.length + 1) {
+                      return const RateIdeaOutro();
                     } else {
                       var questionTitle = idea.questionRatings[index - 1].questionTitle;
                       var questionDescription = idea.questionRatings[index - 1].questionDescription;
@@ -43,17 +47,29 @@ class RateIdeaPage extends StatelessWidget {
                             padding: const EdgeInsets.all(12.0),
                             child: RichText(
                               text: TextSpan(
-                                text: questionTitle,
-                                style: TextStyle(fontWeight: FontWeight.w600),
+                                text: '$index. $questionTitle',
+                                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                                 children: [
                                   TextSpan(
-                                    text: ' - ${questionDescription}',
-                                    style: TextStyle(fontWeight: FontWeight.normal),
+                                    text: ' - $questionDescription',
+                                    style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 16),
                                   )
                                 ],
                               ),
                             ),
                           ),
+                          IdeaRatingSliderHeader(currentSliderValue: questionRating),
+                          Slider.adaptive(
+                              value: questionRating.toDouble(),
+                              min: 0,
+                              max: 10,
+                              divisions: 10,
+                              //label: 'Test',
+                              activeColor: Colors.teal,
+                              onChanged: (newRating) {
+                                print(newRating);
+                                //   questionRating = newRating;
+                              }),
                         ],
                       );
                     }
@@ -69,27 +85,7 @@ class RateIdeaPage extends StatelessWidget {
       //   child: Column(
       //     children: [
       //       Text(''),
-      //
-      //       Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           Text('1'),
-      //           Text(firstQuestion.round().toString()),
-      //           Text('10'),
-      //         ],
-      //       ),
-      //       Slider.adaptive(
-      //           value: firstQuestion,
-      //           min: 1,
-      //           max: 10,
-      //           divisions: 9,
-      //           //label: 'Test',
-      //           activeColor: Colors.teal,
-      //           onChanged: (newRating) {
-      //             setState(() {
-      //               firstQuestion = newRating;
-      //             });
-      //           }),
+
       //     ],
       //   ),
       // ),
