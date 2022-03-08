@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../constants.dart';
-
 class RateIdeaIntro extends StatelessWidget {
   const RateIdeaIntro({Key? key}) : super(key: key);
 

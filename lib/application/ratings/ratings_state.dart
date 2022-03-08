@@ -5,21 +5,21 @@ enum RatingsStatus { initial, success, error }
 class RatingsState extends Equatable {
   const RatingsState({
     this.status = RatingsStatus.initial,
-    this.questionRatings = const <QuestionRating>[],
+    this.questions = const <Question>[],
   });
 
   final RatingsStatus status;
-  final List<QuestionRating> questionRatings;
+  final List<Question> questions;
 
   RatingsState copyWith({
     RatingsStatus? status,
-    List<QuestionRating>? questionRatings,
+    List<Question>? questions,
   }) =>
       RatingsState(
         status: status ?? this.status,
-        questionRatings: questionRatings ?? this.questionRatings,
+        questions: questions ?? this.questions,
       );
 
   @override
-  List<Object> get props => [status, questionRatings];
+  List<Object> get props => [status, questions];
 }

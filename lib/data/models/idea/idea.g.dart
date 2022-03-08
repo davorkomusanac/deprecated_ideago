@@ -22,7 +22,7 @@ class IdeaAdapter extends TypeAdapter<_$_Idea> {
       description: fields[2] as String,
       categories: (fields[3] as List).cast<String>(),
       dateTime: fields[4] as DateTime,
-      questionRatings: (fields[5] as List).cast<QuestionRating>(),
+      questionRatings: (fields[5] as List).cast<Question>(),
     );
   }
 
@@ -68,7 +68,7 @@ _$_Idea _$$_IdeaFromJson(Map<String, dynamic> json) => _$_Idea(
           .toList(),
       dateTime: DateTime.parse(json['dateTime'] as String),
       questionRatings: (json['questionRatings'] as List<dynamic>)
-          .map((e) => QuestionRating.fromJson(e as Map<String, dynamic>))
+          .map((e) => Question.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

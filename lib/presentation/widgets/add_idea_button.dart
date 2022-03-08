@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 
-import '../pages/add_idea_page.dart';
+class AddIdeaButton extends StatelessWidget {
+  const AddIdeaButton({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+  }) : super(key: key);
 
-class AddIdea extends StatelessWidget {
-  const AddIdea({Key? key}) : super(key: key);
+  final String text;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 32.0, top: 8.0),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: Colors.teal),
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const AddIdeaPage(),
+    return Align(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.4,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 32.0, top: 8.0),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Colors.teal),
+            onPressed: onPressed,
+            child: Text(text),
           ),
         ),
-        child: const Text("Add new idea"),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:ideago/data/models/question_rating/question_rating.dart';
+import 'package:ideago/data/models/question/question.dart';
 
 part 'idea.freezed.dart';
 part 'idea.g.dart';
@@ -15,7 +15,7 @@ class Idea with _$Idea {
     @HiveField(2) required String description,
     @HiveField(3) required List<String> categories,
     @HiveField(4) required DateTime dateTime,
-    @HiveField(5) required List<QuestionRating> questionRatings,
+    @HiveField(5) required List<Question> questionRatings,
     //TODO int sumOfRatings?
     //TODO List<String> categories?
     //TODO int index

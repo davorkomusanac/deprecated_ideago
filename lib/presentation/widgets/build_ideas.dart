@@ -41,7 +41,7 @@ class BuildIdeas extends StatelessWidget {
                                 elevation: 5,
                                 child: Padding(
                                   padding: EdgeInsets.all(8.0),
-                                  //TODO
+                                  //TODO Sum all ratings question here
                                   child: Text("90"),
                                 ),
                               ),

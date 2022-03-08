@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../constants.dart';
-
 class RateIdeaOutro extends StatelessWidget {
   const RateIdeaOutro({Key? key}) : super(key: key);
 
@@ -34,9 +32,7 @@ class RateIdeaOutro extends StatelessWidget {
                       text: ' 50',
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
-                    TextSpan(
-                        text:
-                            ' - move on to another idea, there are better ideas worth your time.\n\nIf the score is '),
+                    TextSpan(text: ' - move on to another idea, there are better ideas worth your time.\n\nIf the score is '),
                     TextSpan(
                       text: 'between',
                       style: TextStyle(fontWeight: FontWeight.w600, backgroundColor: Colors.orange),

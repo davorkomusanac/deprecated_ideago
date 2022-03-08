@@ -1,38 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'question_rating.dart';
+part of 'question.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class QuestionRatingAdapter extends TypeAdapter<_$_QuestionRating> {
+class QuestionAdapter extends TypeAdapter<_$_Question> {
   @override
   final int typeId = 2;
 
   @override
-  _$_QuestionRating read(BinaryReader reader) {
+  _$_Question read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_QuestionRating(
+    return _$_Question(
       rating: fields[0] as int,
-      questionTitle: fields[1] as String,
-      questionDescription: fields[2] as String,
+      title: fields[1] as String,
+      description: fields[2] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$_QuestionRating obj) {
+  void write(BinaryWriter writer, _$_Question obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
       ..write(obj.rating)
       ..writeByte(1)
-      ..write(obj.questionTitle)
+      ..write(obj.title)
       ..writeByte(2)
-      ..write(obj.questionDescription);
+      ..write(obj.description);
   }
 
   @override
@@ -41,7 +41,7 @@ class QuestionRatingAdapter extends TypeAdapter<_$_QuestionRating> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is QuestionRatingAdapter &&
+      other is QuestionAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -50,16 +50,15 @@ class QuestionRatingAdapter extends TypeAdapter<_$_QuestionRating> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_QuestionRating _$$_QuestionRatingFromJson(Map<String, dynamic> json) =>
-    _$_QuestionRating(
+_$_Question _$$_QuestionFromJson(Map<String, dynamic> json) => _$_Question(
       rating: json['rating'] as int,
-      questionTitle: json['questionTitle'] as String,
-      questionDescription: json['questionDescription'] as String,
+      title: json['title'] as String,
+      description: json['description'] as String,
     );
 
-Map<String, dynamic> _$$_QuestionRatingToJson(_$_QuestionRating instance) =>
+Map<String, dynamic> _$$_QuestionToJson(_$_Question instance) =>
     <String, dynamic>{
       'rating': instance.rating,
-      'questionTitle': instance.questionTitle,
-      'questionDescription': instance.questionDescription,
+      'title': instance.title,
+      'description': instance.description,
     };

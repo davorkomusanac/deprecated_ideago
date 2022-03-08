@@ -28,7 +28,7 @@ class _$IdeaTearOff {
       @HiveField(2) required String description,
       @HiveField(3) required List<String> categories,
       @HiveField(4) required DateTime dateTime,
-      @HiveField(5) required List<QuestionRating> questionRatings}) {
+      @HiveField(5) required List<Question> questionRatings}) {
     return _Idea(
       uid: uid,
       title: title,
@@ -60,8 +60,7 @@ mixin _$Idea {
   @HiveField(4)
   DateTime get dateTime => throw _privateConstructorUsedError;
   @HiveField(5)
-  List<QuestionRating> get questionRatings =>
-      throw _privateConstructorUsedError;
+  List<Question> get questionRatings => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -78,7 +77,7 @@ abstract class $IdeaCopyWith<$Res> {
       @HiveField(2) String description,
       @HiveField(3) List<String> categories,
       @HiveField(4) DateTime dateTime,
-      @HiveField(5) List<QuestionRating> questionRatings});
+      @HiveField(5) List<Question> questionRatings});
 }
 
 /// @nodoc
@@ -122,7 +121,7 @@ class _$IdeaCopyWithImpl<$Res> implements $IdeaCopyWith<$Res> {
       questionRatings: questionRatings == freezed
           ? _value.questionRatings
           : questionRatings // ignore: cast_nullable_to_non_nullable
-              as List<QuestionRating>,
+              as List<Question>,
     ));
   }
 }
@@ -138,7 +137,7 @@ abstract class _$IdeaCopyWith<$Res> implements $IdeaCopyWith<$Res> {
       @HiveField(2) String description,
       @HiveField(3) List<String> categories,
       @HiveField(4) DateTime dateTime,
-      @HiveField(5) List<QuestionRating> questionRatings});
+      @HiveField(5) List<Question> questionRatings});
 }
 
 /// @nodoc
@@ -183,7 +182,7 @@ class __$IdeaCopyWithImpl<$Res> extends _$IdeaCopyWithImpl<$Res>
       questionRatings: questionRatings == freezed
           ? _value.questionRatings
           : questionRatings // ignore: cast_nullable_to_non_nullable
-              as List<QuestionRating>,
+              as List<Question>,
     ));
   }
 }
@@ -219,7 +218,7 @@ class _$_Idea with DiagnosticableTreeMixin implements _Idea {
   final DateTime dateTime;
   @override
   @HiveField(5)
-  final List<QuestionRating> questionRatings;
+  final List<Question> questionRatings;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -283,7 +282,7 @@ abstract class _Idea implements Idea {
       @HiveField(2) required String description,
       @HiveField(3) required List<String> categories,
       @HiveField(4) required DateTime dateTime,
-      @HiveField(5) required List<QuestionRating> questionRatings}) = _$_Idea;
+      @HiveField(5) required List<Question> questionRatings}) = _$_Idea;
 
   factory _Idea.fromJson(Map<String, dynamic> json) = _$_Idea.fromJson;
 
@@ -304,7 +303,7 @@ abstract class _Idea implements Idea {
   DateTime get dateTime;
   @override
   @HiveField(5)
-  List<QuestionRating> get questionRatings;
+  List<Question> get questionRatings;
   @override
   @JsonKey(ignore: true)
   _$IdeaCopyWith<_Idea> get copyWith => throw _privateConstructorUsedError;

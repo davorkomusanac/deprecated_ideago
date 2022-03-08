@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ideago/application/ideas/ideas_cubit.dart';
+import 'package:ideago/constants.dart';
 import 'package:ideago/presentation/pages/rate_idea_page/rate_idea_page.dart';
+import 'package:ideago/presentation/widgets/add_idea_button.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../application/ratings/ratings_cubit.dart';
 
 class AddIdeaPage extends StatefulWidget {
   const AddIdeaPage({Key? key}) : super(key: key);
@@ -33,7 +37,7 @@ class _AddIdeaPageState extends State<AddIdeaPage> {
     super.dispose();
   }
 
-  Widget buildIdeaTitleTextfield() {
+  Widget buildIdeaTitleTextField() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
       child: TextFormField(
@@ -57,7 +61,7 @@ class _AddIdeaPageState extends State<AddIdeaPage> {
     );
   }
 
-  Widget buildIdeaDescriptionTextfield() {
+  Widget buildIdeaDescriptionTextField() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
       child: TextField(
@@ -89,35 +93,30 @@ class _AddIdeaPageState extends State<AddIdeaPage> {
           child: ListView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             children: [
-              buildIdeaTitleTextfield(),
-              buildIdeaDescriptionTextfield(),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Center(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Colors.teal),
-                    onPressed: () {
-                      var valid = _formKey.currentState?.validate() ?? false;
-                      if (valid) {
-                        //generating uid here since it is also needed for RateIdeaPage
-                        var uid = const Uuid().v4();
-                        context.read<IdeasCubit>().addIdea(
-                              uid: uid,
-                              title: _titleController.text,
-                              description: _descriptionController.text,
-                            );
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RateIdeaPage(ideaUid: uid),
-                          ),
+              buildIdeaTitleTextField(),
+              buildIdeaDescriptionTextField(),
+              AddIdeaButton(
+                text: 'Add idea',
+                onPressed: () {
+                  var valid = _formKey.currentState?.validate() ?? false;
+                  if (valid) {
+                    //generating uid here since it is also needed for RateIdeaPage
+                    var uid = const Uuid().v4();
+                    context.read<IdeasCubit>().addIdea(
+                          uid: uid,
+                          title: _titleController.text,
+                          description: _descriptionController.text,
                         );
-                      }
-                    },
-                    child: const Text("Add Idea"),
-                  ),
-                ),
-              ),
+                    context.read<RatingsCubit>().getRatings(questions: initialQuestionRatings);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RateIdeaPage(ideaUid: uid),
+                      ),
+                    );
+                  }
+                },
+              )
             ],
           ),
         ),

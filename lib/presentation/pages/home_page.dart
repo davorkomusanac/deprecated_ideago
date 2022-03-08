@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ideago/presentation/pages/add_idea_page.dart';
 
 import '../widgets/add_idea_button.dart';
 import '../widgets/build_ideas.dart';
@@ -14,9 +15,19 @@ class HomePage extends StatelessWidget {
         title: const Text("IdeaGo"),
       ),
       body: Column(
-        children: const [
-          BuildIdeas(),
-          AddIdea(),
+        children: [
+          const BuildIdeas(),
+          AddIdeaButton(
+            text: 'Add new idea',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AddIdeaPage(),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
