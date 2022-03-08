@@ -33,7 +33,4 @@ class RatingsCubit extends Cubit<RatingsState> {
       questions: updatedRatings,
     ));
   }
-
-  //TODO is it needed?
-  void saveRatings() {}
 }

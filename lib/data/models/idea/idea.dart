@@ -16,10 +16,9 @@ class Idea with _$Idea {
     @HiveField(3) required List<String> categories,
     @HiveField(4) required DateTime dateTime,
     @HiveField(5) required List<Question> questionRatings,
-    //TODO int sumOfRatings?
+    @HiveField(6) required int ideaRating,
     //TODO List<String> categories?
     //TODO int index
-    //TODO List<int> ideaRatings
   }) = _Idea;
 
   factory Idea.fromJson(Map<String, dynamic> json) => _$IdeaFromJson(json);

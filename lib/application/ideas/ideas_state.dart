@@ -25,10 +25,5 @@ class IdeasState extends Equatable {
       );
 
   @override
-  String toString() {
-    return '''IdeasState { status: $status, ideasLength: ${ideas.length} }''';
-  }
-
-  @override
   List<Object> get props => [status, ideas, errorMessage];
 }

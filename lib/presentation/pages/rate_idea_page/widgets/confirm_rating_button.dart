@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:ideago/presentation/pages/home_page.dart';
 
 class ConfirmRatingButton extends StatelessWidget {
-  const ConfirmRatingButton({Key? key}) : super(key: key);
+  const ConfirmRatingButton({
+    Key? key,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +18,7 @@ class ConfirmRatingButton extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 8.0, top: 8.0),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(primary: Colors.teal),
-            onPressed: () {
-              //TODO Call saveRatings
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(),
-                ),
-                (_) => false,
-              );
-            },
+            onPressed: onPressed,
             child: const Text("Rate Idea"),
           ),
         ),

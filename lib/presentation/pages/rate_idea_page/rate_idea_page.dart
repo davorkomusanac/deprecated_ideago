@@ -36,7 +36,16 @@ class RateIdeaPage extends StatelessWidget {
                   } else if (index == state.questions.length + 1) {
                     return const RateIdeaOutro();
                   } else if (index == state.questions.length + 2) {
-                    return const ConfirmRatingButton();
+                    return ConfirmRatingButton(
+                      onPressed: () {
+                        context.read<IdeasCubit>().rateIdeaQuestion(
+                              ideaUid: ideaUid,
+                              questions: state.questions,
+                            );
+
+                        Navigator.of(context).pop();
+                      },
+                    );
                   } else {
                     var questionTitle = state.questions[index - 1].title;
                     var questionDescription = state.questions[index - 1].description;
@@ -84,14 +93,6 @@ class RateIdeaPage extends StatelessWidget {
           );
         },
       ),
-      // body: SingleChildScrollView(
-      //   child: Column(
-      //     children: [
-      //       Text(''),
-
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

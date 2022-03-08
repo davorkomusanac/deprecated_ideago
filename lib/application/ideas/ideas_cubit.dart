@@ -4,6 +4,7 @@ import 'package:ideago/repository/ideas_repository.dart';
 
 import '../../constants.dart';
 import '../../data/models/idea/idea.dart';
+import '../../data/models/question/question.dart';
 
 part 'ideas_state.dart';
 
@@ -43,6 +44,7 @@ class IdeasCubit extends Cubit<IdeasState> {
         categories: <String>[],
         dateTime: DateTime.now(),
         questionRatings: initialQuestionRatings,
+        ideaRating: 50,
       );
 
       _repository.addIdea(idea);
@@ -82,7 +84,31 @@ class IdeasCubit extends Cubit<IdeasState> {
 
   void rateIdeaQuestion({
     required String ideaUid,
-    required int questionRatingsIndex,
-    required int rating,
-  }) {}
+    required List<Question> questions,
+  }) {
+    //Calculate total idea Rating
+    var ideaRating = questions.fold<int>(0, (prev, next) => prev + next.rating);
+
+    var idea = state.ideas.firstWhere((element) => element.uid == ideaUid);
+
+    //Create a new updated Idea instance with the new rating
+    var ratedIdea = Idea(
+      uid: idea.uid,
+      title: idea.title,
+      description: idea.description,
+      categories: idea.categories,
+      dateTime: idea.dateTime,
+      questionRatings: questions,
+      ideaRating: ideaRating,
+    );
+
+    //Copy the list of ideas, so that we are not directly mutating the state
+    var ideas = state.ideas.map((e) => e.uid == ratedIdea.uid ? ratedIdea : e).toList();
+
+    emit(state.copyWith(
+      status: IdeasStatus.success,
+      ideas: ideas,
+      errorMessage: '',
+    ));
+  }
 }

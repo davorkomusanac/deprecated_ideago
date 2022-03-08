@@ -1,9 +1,12 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ideago/presentation/widgets/idea_rating_card.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../application/ideas/ideas_cubit.dart';
+import '../../application/ratings/ratings_cubit.dart';
+import '../pages/rate_idea_page/rate_idea_page.dart';
 
 class BuildIdeas extends StatelessWidget {
   const BuildIdeas({Key? key}) : super(key: key);
@@ -34,17 +37,18 @@ class BuildIdeas extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Flexible(
-                            child: Center(
-                              child: Card(
-                                color: Colors.green,
-                                elevation: 5,
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  //TODO Sum all ratings question here
-                                  child: Text("90"),
-                                ),
-                              ),
+                          Flexible(
+                            child: IdeaRatingCard(
+                              ideaRating: idea.ideaRating,
+                              onTap: () {
+                                context.read<RatingsCubit>().getRatings(questions: idea.questionRatings);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RateIdeaPage(ideaUid: idea.uid),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                           Expanded(
