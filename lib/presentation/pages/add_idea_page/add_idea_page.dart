@@ -6,7 +6,8 @@ import 'package:ideago/presentation/pages/rate_idea_page/rate_idea_page.dart';
 import 'package:ideago/presentation/widgets/add_idea_button.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../application/ratings/ratings_cubit.dart';
+import '../../../application/ratings/ratings_cubit.dart';
+import '../../widgets/idea_text_field.dart';
 
 class AddIdeaPage extends StatefulWidget {
   const AddIdeaPage({Key? key}) : super(key: key);
@@ -18,7 +19,6 @@ class AddIdeaPage extends StatefulWidget {
 class _AddIdeaPageState extends State<AddIdeaPage> {
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
-  late TextEditingController _categoriesController;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -26,57 +26,13 @@ class _AddIdeaPageState extends State<AddIdeaPage> {
     super.initState();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
-    _categoriesController = TextEditingController();
   }
 
   @override
   void dispose() {
     _titleController.dispose();
     _descriptionController.dispose();
-    _categoriesController.dispose();
     super.dispose();
-  }
-
-  Widget buildIdeaTitleTextField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-      child: TextFormField(
-        controller: _titleController,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Your Idea must have a name';
-          } else {
-            return null;
-          }
-        },
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        cursorColor: Colors.teal,
-        autocorrect: false,
-        decoration: const InputDecoration(
-          labelText: 'Idea',
-          hintText: 'Title of your idea..',
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-        ),
-      ),
-    );
-  }
-
-  Widget buildIdeaDescriptionTextField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-      child: TextField(
-        controller: _descriptionController,
-        minLines: 10,
-        maxLines: 30,
-        cursorColor: Colors.teal,
-        autocorrect: false,
-        decoration: const InputDecoration(
-          labelText: 'Description',
-          hintText: 'Full description of your idea..',
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-        ),
-      ),
-    );
   }
 
   @override
@@ -93,9 +49,27 @@ class _AddIdeaPageState extends State<AddIdeaPage> {
           child: ListView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             children: [
-              buildIdeaTitleTextField(),
-              buildIdeaDescriptionTextField(),
-              AddIdeaButton(
+              IdeaTextField(
+                controller: _titleController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Your Idea must have a name';
+                  } else {
+                    return null;
+                  }
+                },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                labelText: 'Idea',
+                hintText: 'Title of your idea..',
+              ),
+              IdeaTextField(
+                controller: _descriptionController,
+                minLines: 10,
+                maxLines: 30,
+                labelText: 'Description',
+                hintText: 'Full description of your idea..',
+              ),
+              IdeaButton(
                 text: 'Add idea',
                 onPressed: () {
                   var valid = _formKey.currentState?.validate() ?? false;

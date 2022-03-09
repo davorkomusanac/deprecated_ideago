@@ -20,7 +20,6 @@ class IdeaAdapter extends TypeAdapter<_$_Idea> {
       uid: fields[0] as String,
       title: fields[1] as String,
       description: fields[2] as String,
-      categories: (fields[3] as List).cast<String>(),
       dateTime: fields[4] as DateTime,
       questionRatings: (fields[5] as List).cast<Question>(),
       ideaRating: fields[6] as int,
@@ -30,15 +29,13 @@ class IdeaAdapter extends TypeAdapter<_$_Idea> {
   @override
   void write(BinaryWriter writer, _$_Idea obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.uid)
       ..writeByte(1)
       ..write(obj.title)
       ..writeByte(2)
       ..write(obj.description)
-      ..writeByte(3)
-      ..write(obj.categories)
       ..writeByte(4)
       ..write(obj.dateTime)
       ..writeByte(5)
@@ -66,9 +63,6 @@ _$_Idea _$$_IdeaFromJson(Map<String, dynamic> json) => _$_Idea(
       uid: json['uid'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
-      categories: (json['categories'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
       dateTime: DateTime.parse(json['dateTime'] as String),
       questionRatings: (json['questionRatings'] as List<dynamic>)
           .map((e) => Question.fromJson(e as Map<String, dynamic>))
@@ -80,7 +74,6 @@ Map<String, dynamic> _$$_IdeaToJson(_$_Idea instance) => <String, dynamic>{
       'uid': instance.uid,
       'title': instance.title,
       'description': instance.description,
-      'categories': instance.categories,
       'dateTime': instance.dateTime.toIso8601String(),
       'questionRatings': instance.questionRatings,
       'ideaRating': instance.ideaRating,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ideago/presentation/pages/home_page.dart';
 
 class ConfirmRatingButton extends StatelessWidget {
   const ConfirmRatingButton({

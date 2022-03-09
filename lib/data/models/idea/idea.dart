@@ -13,7 +13,6 @@ class Idea with _$Idea {
     @HiveField(0) required String uid,
     @HiveField(1) required String title,
     @HiveField(2) required String description,
-    @HiveField(3) required List<String> categories,
     @HiveField(4) required DateTime dateTime,
     @HiveField(5) required List<Question> questionRatings,
     @HiveField(6) required int ideaRating,

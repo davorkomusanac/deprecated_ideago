@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ideago/presentation/pages/update_idea_page/update_idea_page.dart';
 import 'package:ideago/presentation/widgets/idea_rating_card.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -91,8 +92,8 @@ class BuildIdeas extends StatelessWidget {
                                     ),
                                   ),
                                   theme: const ExpandableThemeData(
-                                    animationDuration: Duration(milliseconds: 700),
-                                    scrollAnimationDuration: Duration(milliseconds: 1000),
+                                    animationDuration: Duration(milliseconds: 500),
+                                    scrollAnimationDuration: Duration(milliseconds: 500),
                                     crossFadePoint: 0.1,
                                   ),
                                 ),
@@ -102,7 +103,12 @@ class BuildIdeas extends StatelessWidget {
                           Flexible(
                             child: InkWell(
                               onTap: () {
-                                //TODO
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => UpdateIdeaPage(idea: idea),
+                                  ),
+                                );
                               },
                               child: const Padding(
                                 padding: EdgeInsets.all(8.0),

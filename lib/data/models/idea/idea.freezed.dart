@@ -26,7 +26,6 @@ class _$IdeaTearOff {
       {@HiveField(0) required String uid,
       @HiveField(1) required String title,
       @HiveField(2) required String description,
-      @HiveField(3) required List<String> categories,
       @HiveField(4) required DateTime dateTime,
       @HiveField(5) required List<Question> questionRatings,
       @HiveField(6) required int ideaRating}) {
@@ -34,7 +33,6 @@ class _$IdeaTearOff {
       uid: uid,
       title: title,
       description: description,
-      categories: categories,
       dateTime: dateTime,
       questionRatings: questionRatings,
       ideaRating: ideaRating,
@@ -57,8 +55,6 @@ mixin _$Idea {
   String get title => throw _privateConstructorUsedError;
   @HiveField(2)
   String get description => throw _privateConstructorUsedError;
-  @HiveField(3)
-  List<String> get categories => throw _privateConstructorUsedError;
   @HiveField(4)
   DateTime get dateTime => throw _privateConstructorUsedError;
   @HiveField(5)
@@ -79,7 +75,6 @@ abstract class $IdeaCopyWith<$Res> {
       {@HiveField(0) String uid,
       @HiveField(1) String title,
       @HiveField(2) String description,
-      @HiveField(3) List<String> categories,
       @HiveField(4) DateTime dateTime,
       @HiveField(5) List<Question> questionRatings,
       @HiveField(6) int ideaRating});
@@ -98,7 +93,6 @@ class _$IdeaCopyWithImpl<$Res> implements $IdeaCopyWith<$Res> {
     Object? uid = freezed,
     Object? title = freezed,
     Object? description = freezed,
-    Object? categories = freezed,
     Object? dateTime = freezed,
     Object? questionRatings = freezed,
     Object? ideaRating = freezed,
@@ -116,10 +110,6 @@ class _$IdeaCopyWithImpl<$Res> implements $IdeaCopyWith<$Res> {
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      categories: categories == freezed
-          ? _value.categories
-          : categories // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -145,7 +135,6 @@ abstract class _$IdeaCopyWith<$Res> implements $IdeaCopyWith<$Res> {
       {@HiveField(0) String uid,
       @HiveField(1) String title,
       @HiveField(2) String description,
-      @HiveField(3) List<String> categories,
       @HiveField(4) DateTime dateTime,
       @HiveField(5) List<Question> questionRatings,
       @HiveField(6) int ideaRating});
@@ -165,7 +154,6 @@ class __$IdeaCopyWithImpl<$Res> extends _$IdeaCopyWithImpl<$Res>
     Object? uid = freezed,
     Object? title = freezed,
     Object? description = freezed,
-    Object? categories = freezed,
     Object? dateTime = freezed,
     Object? questionRatings = freezed,
     Object? ideaRating = freezed,
@@ -183,10 +171,6 @@ class __$IdeaCopyWithImpl<$Res> extends _$IdeaCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      categories: categories == freezed
-          ? _value.categories
-          : categories // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -211,7 +195,6 @@ class _$_Idea with DiagnosticableTreeMixin implements _Idea {
       {@HiveField(0) required this.uid,
       @HiveField(1) required this.title,
       @HiveField(2) required this.description,
-      @HiveField(3) required this.categories,
       @HiveField(4) required this.dateTime,
       @HiveField(5) required this.questionRatings,
       @HiveField(6) required this.ideaRating});
@@ -228,9 +211,6 @@ class _$_Idea with DiagnosticableTreeMixin implements _Idea {
   @HiveField(2)
   final String description;
   @override
-  @HiveField(3)
-  final List<String> categories;
-  @override
   @HiveField(4)
   final DateTime dateTime;
   @override
@@ -242,7 +222,7 @@ class _$_Idea with DiagnosticableTreeMixin implements _Idea {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Idea(uid: $uid, title: $title, description: $description, categories: $categories, dateTime: $dateTime, questionRatings: $questionRatings, ideaRating: $ideaRating)';
+    return 'Idea(uid: $uid, title: $title, description: $description, dateTime: $dateTime, questionRatings: $questionRatings, ideaRating: $ideaRating)';
   }
 
   @override
@@ -253,7 +233,6 @@ class _$_Idea with DiagnosticableTreeMixin implements _Idea {
       ..add(DiagnosticsProperty('uid', uid))
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('description', description))
-      ..add(DiagnosticsProperty('categories', categories))
       ..add(DiagnosticsProperty('dateTime', dateTime))
       ..add(DiagnosticsProperty('questionRatings', questionRatings))
       ..add(DiagnosticsProperty('ideaRating', ideaRating));
@@ -268,8 +247,6 @@ class _$_Idea with DiagnosticableTreeMixin implements _Idea {
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.categories, categories) &&
             const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
             const DeepCollectionEquality()
                 .equals(other.questionRatings, questionRatings) &&
@@ -283,7 +260,6 @@ class _$_Idea with DiagnosticableTreeMixin implements _Idea {
       const DeepCollectionEquality().hash(uid),
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(categories),
       const DeepCollectionEquality().hash(dateTime),
       const DeepCollectionEquality().hash(questionRatings),
       const DeepCollectionEquality().hash(ideaRating));
@@ -304,7 +280,6 @@ abstract class _Idea implements Idea {
       {@HiveField(0) required String uid,
       @HiveField(1) required String title,
       @HiveField(2) required String description,
-      @HiveField(3) required List<String> categories,
       @HiveField(4) required DateTime dateTime,
       @HiveField(5) required List<Question> questionRatings,
       @HiveField(6) required int ideaRating}) = _$_Idea;
@@ -320,9 +295,6 @@ abstract class _Idea implements Idea {
   @override
   @HiveField(2)
   String get description;
-  @override
-  @HiveField(3)
-  List<String> get categories;
   @override
   @HiveField(4)
   DateTime get dateTime;

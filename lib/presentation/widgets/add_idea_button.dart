@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AddIdeaButton extends StatelessWidget {
-  const AddIdeaButton({
+class IdeaButton extends StatelessWidget {
+  const IdeaButton({
     Key? key,
     required this.text,
     required this.onPressed,

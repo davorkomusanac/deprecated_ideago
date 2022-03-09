@@ -41,7 +41,6 @@ class IdeasCubit extends Cubit<IdeasState> {
         uid: uid,
         title: title,
         description: description,
-        categories: <String>[],
         dateTime: DateTime.now(),
         questionRatings: initialQuestionRatings,
         ideaRating: 50,
@@ -53,6 +52,41 @@ class IdeasCubit extends Cubit<IdeasState> {
       emit(state.copyWith(
         status: IdeasStatus.success,
         ideas: updatedIdeas,
+        errorMessage: '',
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: IdeasStatus.error,
+        errorMessage: e.toString(),
+      ));
+    }
+  }
+
+  void updateIdea({
+    required Idea oldIdea,
+    required String title,
+    required String description,
+  }) {
+    try {
+      //Create a new updated instance
+      var idea = Idea(
+        uid: oldIdea.uid,
+        title: title,
+        description: description,
+        dateTime: oldIdea.dateTime,
+        questionRatings: oldIdea.questionRatings,
+        ideaRating: oldIdea.ideaRating,
+      );
+
+      //Update the Idea first in local storage
+      _repository.updateIdea(idea);
+
+      //Copy the list of ideas, so that we are not directly mutating the state
+      var ideas = state.ideas.map((e) => e.uid == idea.uid ? idea : e).toList();
+
+      emit(state.copyWith(
+        status: IdeasStatus.success,
+        ideas: ideas,
         errorMessage: '',
       ));
     } catch (e) {
@@ -96,11 +130,13 @@ class IdeasCubit extends Cubit<IdeasState> {
       uid: idea.uid,
       title: idea.title,
       description: idea.description,
-      categories: idea.categories,
       dateTime: idea.dateTime,
       questionRatings: questions,
       ideaRating: ideaRating,
     );
+
+    //Update the Idea in local storage
+    _repository.updateIdea(ratedIdea);
 
     //Copy the list of ideas, so that we are not directly mutating the state
     var ideas = state.ideas.map((e) => e.uid == ratedIdea.uid ? ratedIdea : e).toList();
