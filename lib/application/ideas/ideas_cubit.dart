@@ -17,6 +17,9 @@ class IdeasCubit extends Cubit<IdeasState> {
     try {
       final ideas = _repository.getAllIdeas();
 
+      //Sort by index asc
+      ideas.sort((prev, next) => prev.index.compareTo(next.index));
+
       emit(state.copyWith(
         status: IdeasStatus.success,
         ideas: ideas,
@@ -36,7 +39,6 @@ class IdeasCubit extends Cubit<IdeasState> {
     required String description,
   }) {
     try {
-      //TODO Implement Idea construction as it should be
       var idea = Idea(
         uid: uid,
         title: title,
@@ -44,6 +46,7 @@ class IdeasCubit extends Cubit<IdeasState> {
         dateTime: DateTime.now(),
         questionRatings: initialQuestionRatings,
         ideaRating: 50,
+        index: state.ideas.length,
       );
 
       _repository.addIdea(idea);
@@ -76,6 +79,7 @@ class IdeasCubit extends Cubit<IdeasState> {
         dateTime: oldIdea.dateTime,
         questionRatings: oldIdea.questionRatings,
         ideaRating: oldIdea.ideaRating,
+        index: oldIdea.index,
       );
 
       //Update the Idea first in local storage
@@ -133,6 +137,7 @@ class IdeasCubit extends Cubit<IdeasState> {
       dateTime: idea.dateTime,
       questionRatings: questions,
       ideaRating: ideaRating,
+      index: idea.index,
     );
 
     //Update the Idea in local storage
@@ -144,6 +149,36 @@ class IdeasCubit extends Cubit<IdeasState> {
     emit(state.copyWith(
       status: IdeasStatus.success,
       ideas: ideas,
+      errorMessage: '',
+    ));
+  }
+
+  void reorderIdeas({required int oldIndex, required int newIndex}) {
+    //Check if newIndex bigger than old index, if so, reduce it by 1 for correct placing in list.
+    var localNewIndex = newIndex > oldIndex ? newIndex - 1 : newIndex;
+    var oldIdeas = [...state.ideas];
+
+    var idea = oldIdeas.removeAt(oldIndex);
+    oldIdeas.insert(localNewIndex, idea);
+
+    //Not mutating state directly, so we have to populate an empty list with new Idea instances
+    var newIdeas = <Idea>[];
+    for (int i = 0; i < oldIdeas.length; i++) {
+      var newIdea = Idea(
+          uid: oldIdeas[i].uid,
+          title: oldIdeas[i].title,
+          description: oldIdeas[i].description,
+          dateTime: oldIdeas[i].dateTime,
+          questionRatings: oldIdeas[i].questionRatings,
+          ideaRating: oldIdeas[i].ideaRating,
+          index: i);
+      newIdeas.add(newIdea);
+      _repository.updateIdea(newIdea);
+    }
+
+    emit(state.copyWith(
+      status: IdeasStatus.success,
+      ideas: newIdeas,
       errorMessage: '',
     ));
   }

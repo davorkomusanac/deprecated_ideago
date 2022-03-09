@@ -28,7 +28,8 @@ class _$IdeaTearOff {
       @HiveField(2) required String description,
       @HiveField(4) required DateTime dateTime,
       @HiveField(5) required List<Question> questionRatings,
-      @HiveField(6) required int ideaRating}) {
+      @HiveField(6) required int ideaRating,
+      @HiveField(7) required int index}) {
     return _Idea(
       uid: uid,
       title: title,
@@ -36,6 +37,7 @@ class _$IdeaTearOff {
       dateTime: dateTime,
       questionRatings: questionRatings,
       ideaRating: ideaRating,
+      index: index,
     );
   }
 
@@ -61,6 +63,8 @@ mixin _$Idea {
   List<Question> get questionRatings => throw _privateConstructorUsedError;
   @HiveField(6)
   int get ideaRating => throw _privateConstructorUsedError;
+  @HiveField(7)
+  int get index => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -77,7 +81,8 @@ abstract class $IdeaCopyWith<$Res> {
       @HiveField(2) String description,
       @HiveField(4) DateTime dateTime,
       @HiveField(5) List<Question> questionRatings,
-      @HiveField(6) int ideaRating});
+      @HiveField(6) int ideaRating,
+      @HiveField(7) int index});
 }
 
 /// @nodoc
@@ -96,6 +101,7 @@ class _$IdeaCopyWithImpl<$Res> implements $IdeaCopyWith<$Res> {
     Object? dateTime = freezed,
     Object? questionRatings = freezed,
     Object? ideaRating = freezed,
+    Object? index = freezed,
   }) {
     return _then(_value.copyWith(
       uid: uid == freezed
@@ -122,6 +128,10 @@ class _$IdeaCopyWithImpl<$Res> implements $IdeaCopyWith<$Res> {
           ? _value.ideaRating
           : ideaRating // ignore: cast_nullable_to_non_nullable
               as int,
+      index: index == freezed
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -137,7 +147,8 @@ abstract class _$IdeaCopyWith<$Res> implements $IdeaCopyWith<$Res> {
       @HiveField(2) String description,
       @HiveField(4) DateTime dateTime,
       @HiveField(5) List<Question> questionRatings,
-      @HiveField(6) int ideaRating});
+      @HiveField(6) int ideaRating,
+      @HiveField(7) int index});
 }
 
 /// @nodoc
@@ -157,6 +168,7 @@ class __$IdeaCopyWithImpl<$Res> extends _$IdeaCopyWithImpl<$Res>
     Object? dateTime = freezed,
     Object? questionRatings = freezed,
     Object? ideaRating = freezed,
+    Object? index = freezed,
   }) {
     return _then(_Idea(
       uid: uid == freezed
@@ -183,6 +195,10 @@ class __$IdeaCopyWithImpl<$Res> extends _$IdeaCopyWithImpl<$Res>
           ? _value.ideaRating
           : ideaRating // ignore: cast_nullable_to_non_nullable
               as int,
+      index: index == freezed
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -197,7 +213,8 @@ class _$_Idea with DiagnosticableTreeMixin implements _Idea {
       @HiveField(2) required this.description,
       @HiveField(4) required this.dateTime,
       @HiveField(5) required this.questionRatings,
-      @HiveField(6) required this.ideaRating});
+      @HiveField(6) required this.ideaRating,
+      @HiveField(7) required this.index});
 
   factory _$_Idea.fromJson(Map<String, dynamic> json) => _$$_IdeaFromJson(json);
 
@@ -219,10 +236,13 @@ class _$_Idea with DiagnosticableTreeMixin implements _Idea {
   @override
   @HiveField(6)
   final int ideaRating;
+  @override
+  @HiveField(7)
+  final int index;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Idea(uid: $uid, title: $title, description: $description, dateTime: $dateTime, questionRatings: $questionRatings, ideaRating: $ideaRating)';
+    return 'Idea(uid: $uid, title: $title, description: $description, dateTime: $dateTime, questionRatings: $questionRatings, ideaRating: $ideaRating, index: $index)';
   }
 
   @override
@@ -235,7 +255,8 @@ class _$_Idea with DiagnosticableTreeMixin implements _Idea {
       ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('dateTime', dateTime))
       ..add(DiagnosticsProperty('questionRatings', questionRatings))
-      ..add(DiagnosticsProperty('ideaRating', ideaRating));
+      ..add(DiagnosticsProperty('ideaRating', ideaRating))
+      ..add(DiagnosticsProperty('index', index));
   }
 
   @override
@@ -251,7 +272,8 @@ class _$_Idea with DiagnosticableTreeMixin implements _Idea {
             const DeepCollectionEquality()
                 .equals(other.questionRatings, questionRatings) &&
             const DeepCollectionEquality()
-                .equals(other.ideaRating, ideaRating));
+                .equals(other.ideaRating, ideaRating) &&
+            const DeepCollectionEquality().equals(other.index, index));
   }
 
   @override
@@ -262,7 +284,8 @@ class _$_Idea with DiagnosticableTreeMixin implements _Idea {
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(dateTime),
       const DeepCollectionEquality().hash(questionRatings),
-      const DeepCollectionEquality().hash(ideaRating));
+      const DeepCollectionEquality().hash(ideaRating),
+      const DeepCollectionEquality().hash(index));
 
   @JsonKey(ignore: true)
   @override
@@ -282,7 +305,8 @@ abstract class _Idea implements Idea {
       @HiveField(2) required String description,
       @HiveField(4) required DateTime dateTime,
       @HiveField(5) required List<Question> questionRatings,
-      @HiveField(6) required int ideaRating}) = _$_Idea;
+      @HiveField(6) required int ideaRating,
+      @HiveField(7) required int index}) = _$_Idea;
 
   factory _Idea.fromJson(Map<String, dynamic> json) = _$_Idea.fromJson;
 
@@ -304,6 +328,9 @@ abstract class _Idea implements Idea {
   @override
   @HiveField(6)
   int get ideaRating;
+  @override
+  @HiveField(7)
+  int get index;
   @override
   @JsonKey(ignore: true)
   _$IdeaCopyWith<_Idea> get copyWith => throw _privateConstructorUsedError;

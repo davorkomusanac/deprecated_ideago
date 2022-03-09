@@ -23,13 +23,14 @@ class IdeaAdapter extends TypeAdapter<_$_Idea> {
       dateTime: fields[4] as DateTime,
       questionRatings: (fields[5] as List).cast<Question>(),
       ideaRating: fields[6] as int,
+      index: fields[7] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_Idea obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.uid)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class IdeaAdapter extends TypeAdapter<_$_Idea> {
       ..writeByte(5)
       ..write(obj.questionRatings)
       ..writeByte(6)
-      ..write(obj.ideaRating);
+      ..write(obj.ideaRating)
+      ..writeByte(7)
+      ..write(obj.index);
   }
 
   @override
@@ -68,6 +71,7 @@ _$_Idea _$$_IdeaFromJson(Map<String, dynamic> json) => _$_Idea(
           .map((e) => Question.fromJson(e as Map<String, dynamic>))
           .toList(),
       ideaRating: json['ideaRating'] as int,
+      index: json['index'] as int,
     );
 
 Map<String, dynamic> _$$_IdeaToJson(_$_Idea instance) => <String, dynamic>{
@@ -77,4 +81,5 @@ Map<String, dynamic> _$$_IdeaToJson(_$_Idea instance) => <String, dynamic>{
       'dateTime': instance.dateTime.toIso8601String(),
       'questionRatings': instance.questionRatings,
       'ideaRating': instance.ideaRating,
+      'index': instance.index,
     };

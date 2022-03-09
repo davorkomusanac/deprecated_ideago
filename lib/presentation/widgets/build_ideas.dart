@@ -28,11 +28,15 @@ class BuildIdeas extends StatelessWidget {
                 child: Text(state.errorMessage),
               );
             } else {
-              return ListView.builder(
+              return ReorderableListView.builder(
+                onReorder: (oldIndex, newIndex) {
+                  context.read<IdeasCubit>().reorderIdeas(oldIndex: oldIndex, newIndex: newIndex);
+                },
                 itemCount: state.ideas.length,
                 itemBuilder: (context, index) {
                   var idea = state.ideas[index];
                   return Padding(
+                    key: Key(idea.uid),
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: Row(
